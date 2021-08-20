@@ -17,6 +17,7 @@ app.use(express.json())
 app.use(cors())
 
 // Routes
+app.use('/', require('./routes/rating_route'))
 
 const PORT = process.env.PORT || 8004
 
