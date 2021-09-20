@@ -34,8 +34,9 @@ router.post('/driver', async (req, res) => {
 
 // Get all pharmacy rating and review by pharmacy id
 router.get('/pharmacy/:pharmacyId', async (req, res) => {
+    const authorizationToken = req.headers.authorization
     try {
-        const result = await ratingService.getPharmacyRatingByPharmacyId(req.params.pharmacyId)
+        const result = await ratingService.getPharmacyRatingByPharmacyId(req.params.pharmacyId, authorizationToken)
         return res.status(200).json({ data: result })
     } catch (error) {
         return res.status(500).json({ error: error.message })
@@ -44,8 +45,9 @@ router.get('/pharmacy/:pharmacyId', async (req, res) => {
 
 // Get all pharmacist rating and review by pharmacist id
 router.get('/pharmacist/:pharmacistId', async (req, res) => {
+    const authorizationToken = req.headers.authorization
     try {
-        const result = await ratingService.getPharmacistRatingByPharmacistId(req.params.pharmacistId)
+        const result = await ratingService.getPharmacistRatingByPharmacistId(req.params.pharmacistId, authorizationToken)
         return res.status(200).json({ data: result })
     } catch (error) {
         return res.status(500).json({ error: error.message })
@@ -54,8 +56,9 @@ router.get('/pharmacist/:pharmacistId', async (req, res) => {
 
 // Get all driver rating and review by driver id
 router.get('/driver/:driverId', async (req, res) => {
+    const authorizationToken = req.headers.authorization
     try {
-        const result = await ratingService.getDriverRatingByDriverId(req.params.driverId)
+        const result = await ratingService.getDriverRatingByDriverId(req.params.driverId, authorizationToken)
         return res.status(200).json({ data: result })
     } catch (error) {
         return res.status(500).json({ error: error.message })

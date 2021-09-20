@@ -46,7 +46,7 @@ export const insertDriverRating = async (data) => {
     }
 }
 
-export const getPharmacyRatingByPharmacyId = async (pharmacyId) => {
+export const getPharmacyRatingByPharmacyId = async (pharmacyId, authorizationToken) => {
     let query = 'SELECT ID, Rate_Timestamp, Rate_Pharmacy_ID, Rate_Pharmacy_Score, Rate_Pharmacy_Feedback, Rate_Patient_ID '
     query += 'FROM Rating '
     query += 'WHERE Rate_Pharmacy_ID = ? '
@@ -59,7 +59,14 @@ export const getPharmacyRatingByPharmacyId = async (pharmacyId) => {
         if(ratings) {
             // Get patient name and profile image
             for (const index in ratings) {
-                let patient = await axios.get(`http://user-profile-service:8000/profile/${ratings[index].Rate_Patient_ID}`)
+                let patient = await axios.get(
+                    `http://user-profile-service:8000/profile/${ratings[index].Rate_Patient_ID}`,
+                    {
+                        headers: {
+                            Authorization: authorizationToken,
+                        }
+                    }
+                )
                 patient = patient.data.data
                 ratings[index].patientName = `${patient.Psn_Fname} ${patient.Psn_Lname}`
                 ratings[index].patientImage = patient.Psn_Image
@@ -72,7 +79,7 @@ export const getPharmacyRatingByPharmacyId = async (pharmacyId) => {
     }
 }
 
-export const getPharmacistRatingByPharmacistId = async (pharmacistId) => {
+export const getPharmacistRatingByPharmacistId = async (pharmacistId, authorizationToken) => {
     let query = 'SELECT ID, Rate_Timestamp, Rate_Pharmacist_ID, Rate_Pharmacist_Score, Rate_Pharmacist_Feedback, Rate_Patient_ID '
     query += 'FROM Rating '
     query += 'WHERE Rate_Pharmacist_ID = ? '
@@ -85,7 +92,14 @@ export const getPharmacistRatingByPharmacistId = async (pharmacistId) => {
         if(ratings) {
             // Get patient name and profile image
             for (const index in ratings) {
-                let patient = await axios.get(`http://user-profile-service:8000/profile/${ratings[index].Rate_Patient_ID}`)
+                let patient = await axios.get(
+                    `http://user-profile-service:8000/profile/${ratings[index].Rate_Patient_ID}`,
+                    {
+                        headers: {
+                            Authorization: authorizationToken,
+                        }
+                    }
+                )
                 patient = patient.data.data
                 ratings[index].patientName = `${patient.Psn_Fname} ${patient.Psn_Lname}`
                 ratings[index].patientImage = patient.Psn_Image
@@ -98,7 +112,7 @@ export const getPharmacistRatingByPharmacistId = async (pharmacistId) => {
     }
 }
 
-export const getDriverRatingByDriverId = async (driverId) => {
+export const getDriverRatingByDriverId = async (driverId, authorizationToken) => {
     let query = 'SELECT ID, Rate_Timestamp, Rate_Driver_ID, Rate_Driver_Score, Rate_Driver_Feedback, Rate_Patient_ID '
     query += 'FROM Rating '
     query += 'WHERE Rate_Driver_ID = ? '
@@ -111,7 +125,14 @@ export const getDriverRatingByDriverId = async (driverId) => {
         if(ratings) {
             // Get patient name and profile image
             for (const index in ratings) {
-                let patient = await axios.get(`http://user-profile-service:8000/profile/${ratings[index].Rate_Patient_ID}`)
+                let patient = await axios.get(
+                    `http://user-profile-service:8000/profile/${ratings[index].Rate_Patient_ID}`,
+                    {
+                        headers: {
+                            Authorization: authorizationToken,
+                        }
+                    }
+                )
                 patient = patient.data.data
                 ratings[index].patientName = `${patient.Psn_Fname} ${patient.Psn_Lname}`
                 ratings[index].patientImage = patient.Psn_Image
